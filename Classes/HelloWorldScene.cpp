@@ -1,5 +1,7 @@
 #include "HelloWorldScene.h"
 
+extern float g_fScaleFactor;
+
 USING_NS_CC;
 
 Scene* HelloWorld::createScene()
@@ -40,8 +42,10 @@ bool HelloWorld::init()
                                            "CloseSelected.png",
                                            CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
     
-	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
-                                origin.y + closeItem->getContentSize().height/2));
+	closeItem->setPosition(Vec2(origin.x + visibleSize.width - g_fScaleFactor*closeItem->getContentSize().width/2 ,
+                                origin.y + g_fScaleFactor*closeItem->getContentSize().height/2));
+
+	closeItem->setScale(g_fScaleFactor);
 
     // create menu, it's an autorelease object
     auto menu = Menu::create(closeItem, NULL);
@@ -60,6 +64,8 @@ bool HelloWorld::init()
     label->setPosition(Vec2(origin.x + visibleSize.width/2,
                             origin.y + visibleSize.height - label->getContentSize().height));
 
+	label->setScale(g_fScaleFactor);
+
     // add the label as a child to this layer
     this->addChild(label, 1);
 
@@ -68,6 +74,8 @@ bool HelloWorld::init()
 
     // position the sprite on the center of the screen
     sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+
+	sprite->setScale(g_fScaleFactor);
 
     // add the sprite as a child to this layer
     this->addChild(sprite, 0);
